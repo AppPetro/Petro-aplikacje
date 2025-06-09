@@ -4,6 +4,19 @@ import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+def run():
+    # --- 0) Konfiguracja aplikacji ---
+    st.set_page_config(page_title="Excel to EPP Generator", layout="wide")
+    st.title("Excel to EPP Generator 🚀")
+
+    # --- 1) Plik referencyjny z opakowaniami i wagami ---
+    REF_PACKAGING_FILE = "excel_informacyjny.xlsx"
+    try:
+        packaging_df = pd.read_excel(REF_PACKAGING_FILE)
+    except FileNotFoundError:
+        st.error(f"Nie znalazłem pliku `{REF_PACKAGING_FILE}`. Umieść go obok `app.py`.")
+        st.stop()
+
 # --- 0) Konfiguracja aplikacji ---
 st.set_page_config(page_title="Excel to EPP Generator", layout="wide")
 st.title("Excel to EPP Generator 🚀")
@@ -289,3 +302,7 @@ st.download_button(
 
 # --- 10) Podgląd danych w tabeli ---
 st.dataframe(data_df)
+
+
+if __name__ == "__main__":
+    run()
